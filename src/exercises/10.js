@@ -1,10 +1,9 @@
 // React.memo
 import React, {useState} from 'react'
 
-// 🐨 1. wrap this in a call to React.memo
-// 💰 const MyComponent = React.memo(function MyComponent() {})
 const Upper = React.memo(function Upper({children}) {
   const [count, setCount] = useState(0)
+  console.log({children, count})
   return (
     <div>
       Uppercase version: {children.toUpperCase()}{' '}
@@ -16,6 +15,7 @@ const Upper = React.memo(function Upper({children}) {
 function App() {
   const [first, setFirstName] = useState('')
   const [last, setLastName] = useState('')
+  console.log('App re-render')
   return (
     <div>
       <label htmlFor="first-name-input">First Name</label>
