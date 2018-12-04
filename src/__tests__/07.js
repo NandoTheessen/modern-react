@@ -1,8 +1,8 @@
 import React from 'react'
 import chalk from 'chalk'
 import {render, fireEvent} from 'react-testing-library'
-import Usage from '../exercises-final/07'
-// import Usage from '../exercises/07'
+// import Usage from '../exercises-final/07'
+import Usage from '../exercises/07'
 
 const sleep = time => new Promise(resolve => setTimeout(resolve, time))
 
@@ -59,8 +59,8 @@ test('renders', async () => {
 /*
 http://ws.kcd.im/?ws=modern%20react&e=07&em=
 */
-test.skip('I submitted my elaboration and feedback', () => {
-  const submitted = false // change this when you've submitted!
+test('I submitted my elaboration and feedback', () => {
+  const submitted = true // change this when you've submitted!
   expect(submitted).toBe(true)
 })
 ////////////////////////////////

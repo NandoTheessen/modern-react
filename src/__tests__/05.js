@@ -1,8 +1,8 @@
 import React from 'react'
 import VanillaTilt from 'vanilla-tilt'
 import {render} from 'react-testing-library'
-import Usage from '../exercises-final/05'
-// import Usage from '../exercises/05'
+//import Usage from '../exercises-final/05'
+import Usage from '../exercises/05'
 
 beforeEach(() => {
   jest.spyOn(VanillaTilt, 'init')
@@ -27,8 +27,8 @@ test('calls VanillaTilt.init with the root node', () => {
 /*
 http://ws.kcd.im/?ws=learn%20react&e=05&em=
 */
-test.skip('I submitted my elaboration and feedback', () => {
-  const submitted = false // change this when you've submitted!
+test('I submitted my elaboration and feedback', () => {
+  const submitted = true // change this when you've submitted!
   expect(submitted).toBe(true)
 })
 ////////////////////////////////

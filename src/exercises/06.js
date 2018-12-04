@@ -1,5 +1,5 @@
 // Stopwatch: useEffect cleanup
-import React from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 
 const buttonStyles = {
   border: '1px solid #ccc',
@@ -12,39 +12,54 @@ const buttonStyles = {
 
 function Stopwatch() {
   // 🐨 1. make lapse and running come from a call to `useState`
-  const lapse = 0
-  const running = false
+  const [lapse, setLapse] = useState(0)
+  const [running, setRunning] = useState(false)
   // 🐨 2. create a timerRef to keep track of the intervalId you get back from setInterval
+  const timerRef = useRef()
 
   // If the stopwatch is unmounted when the interval is running
   // then we could have a memory leak problem. Let's clean that up.
   // 🐨 7. add a `useEffect` here which does nothing, but returns a cleanup
   // function which will run on unmount. It should call `clearInterval`
   // with the timerRef.current (the intervalId you get back from setInterval).
+  useEffect(() => {
+    return () => clearInterval(timerRef.current)
+  }, [])
 
   function handleRunClick() {
     if (running) {
       // 🐨 8. call clearInterval with the intervalId you get back from setInterval
+      clearInterval(timerRef.current)
     } else {
       // 🐨 3. create a startTime variable that should be Date.now() - lapse
+      const startTime = Date.now()
       // 🐨 4. call setInterval (this will return an intervalId which you should
+      const intervalId = setInterval(() => {
+        setLapse(prevLapse => Date.now() - startTime)
+      }, 0)
       // assign to timerRef.current).
+      timerRef.current = intervalId
       // 🐨 5. In your interval callback, update the
       // lapse state to Date.now() - startTime
     }
     // 🐨 6. toggle the running state
     // 💰 setRunning(!running)
+    setRunning(!running)
   }
 
   function handleClearClick() {
     // 🐨 9. clear the interval with the intervalId you get back from setInterval
+    clearInterval(timerRef.current)
     // 🐨 10. set lapse to 0
+    setLapse(0)
     // 🐨 11. set running to false
+    setRunning(false)
   }
 
   return (
     <div style={{textAlign: 'center'}}>
       <label
+        ref={timerRef}
         style={{
           fontSize: '5em',
           display: 'block',

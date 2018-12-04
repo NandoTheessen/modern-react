@@ -6,9 +6,8 @@ function Counter() {
   // But we only really need to read that value for the first render
   // 🐨 1. instead of passing the value to useState as we are now,
   // pass a function which returns the value.
-  const [count, setCount] = useState(
-    Number(window.localStorage.getItem('count') || 0),
-  )
+  const initialCount = () => Number(window.localStorage.getItem('count') || 0)
+  const [count, setCount] = useState(initialCount)
   const incrementCount = () => setCount(count + 1)
   useEffect(
     () => {
@@ -22,6 +21,7 @@ function Counter() {
     // 1. After the first render
     // 2. After a render during which any element in the dependencies array changes.
     //    (If there is no array provided, then it is called after every render.)
+    [count],
   )
   return <button onClick={incrementCount}>{count}</button>
 }
