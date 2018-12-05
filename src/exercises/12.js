@@ -1,11 +1,6 @@
-// VanillaTilt: React.lazy
-// 🐨 3. add "Suspense" as an import from react here
-import React, {useState} from 'react'
-// 🐨 1. remove this import
-import Tilt from '../tilt'
+import React, {Suspense, useState} from 'react'
 
-// 🐨 2. Use React.lazy with a dynamic import of ../tilt and assign that
-// to a variable called Tilt
+const Tilt = React.lazy(() => import('../tilt'))
 
 function App() {
   const [showTilt, setShowTilt] = useState()
@@ -21,14 +16,16 @@ function App() {
       </label>
       <div>
         {/* 🐨 4. Add a Suspense element here with a fallback="loading..." prop */}
-        {showTilt ? (
-          <div className="totally-centered">
-            <Tilt>
-              <div className="totally-centered">vanilla-tilt.js</div>
-            </Tilt>
-          </div>
-        ) : null}
-        {/* close Suspense... then checkout the network tab when you check the box! */}
+        <Suspense fallback="loading...">
+          {showTilt ? (
+            <div className="totally-centered">
+              <Tilt>
+                <div className="totally-centered">vanilla-tilt.js</div>
+              </Tilt>
+            </div>
+          ) : null}
+          {/* close Suspense... then checkout the network tab when you check the box! */}
+        </Suspense>
       </div>
     </div>
   )
